@@ -10,3 +10,9 @@
 .env
 .env.*
 !.env.example
+
+# Frontend dependencies and build outputs
+node_modules/
+dist/
+coverage/
+*.tsbuildinfo
