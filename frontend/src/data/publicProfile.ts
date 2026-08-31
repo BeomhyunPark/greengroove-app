@@ -8,31 +8,21 @@ export type ProfileLink = {
   href?: string;
 };
 
-export type FeaturedProject = {
-  name: string;
-  description: string;
-  status: string;
-  technologies: string[];
-};
-
 export type PublicProfile = {
-  name: string;
   headline: string;
   introduction: string;
+  focus: string;
   skills: SkillCategory[];
   links: {
     github: ProfileLink;
-    resume: ProfileLink;
-    email: ProfileLink;
   };
-  featuredProject: FeaturedProject;
 };
 
 export const publicProfile: PublicProfile = {
-  name: '박범현',
-  headline: '개발과 운영을 경험한 백엔드 웹개발자',
+  headline: '요구사항을 실제로 동작하는 서비스로 만듭니다.',
   introduction:
-    'Java와 Spring Boot를 중심으로 업무 시스템을 개발하는 백엔드 웹개발자입니다.',
+    'Java와 Spring Boot를 중심으로 업무 시스템을 개발하고 운영해 왔습니다. 요구사항을 API와 데이터 모델로 구체화하고, 검증 가능한 결과물로 연결하는 과정에 집중합니다.',
+  focus: '개발과 운영을 함께 경험한 백엔드 웹개발자',
   skills: [
     {
       title: 'Backend',
@@ -56,18 +46,5 @@ export const publicProfile: PublicProfile = {
       label: 'GitHub',
       href: 'https://github.com/BeomhyunPark',
     },
-    resume: {
-      label: '이력서',
-    },
-    email: {
-      label: '이메일',
-    },
-  },
-  featuredProject: {
-    name: 'GreenGroove',
-    // description:
-    //   '',
-    status: '현재 개발 중',
-    technologies: ['React', 'TypeScript'],
   },
 };

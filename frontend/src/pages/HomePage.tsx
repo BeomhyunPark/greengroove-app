@@ -1,103 +1,76 @@
 import { Link } from 'react-router-dom';
 
+import { PageMeta } from '../components/PageMeta';
 import { publicProfile } from '../data/publicProfile';
+import { projects } from '../data/projects';
 import styles from './Page.module.css';
 
 export function HomePage() {
-  const visibleExternalLinks = [
-    publicProfile.links.github,
-    publicProfile.links.resume,
-    publicProfile.links.email,
-  ].filter((link) => link.href);
+  const featuredProject = projects[0];
 
   return (
     <div className={styles.home}>
+      <PageMeta
+        title="Backend developer · Portfolio note"
+        description="Java와 Spring Boot를 중심으로 업무 시스템을 개발하고 운영한 백엔드 개발자의 프로젝트 기록입니다."
+      />
       <section className={styles.hero} aria-labelledby="home-title">
-        <div className={styles.heroContent}>
-          <p className={styles.kicker}>공개 포트폴리오</p>
-          <h1 id="home-title">{publicProfile.name}</h1>
-          <p className={styles.headline}>{publicProfile.headline}</p>
-          <p className={styles.description}>{publicProfile.introduction}</p>
-          <div className={styles.actions} aria-label="주요 링크">
-            <Link className={styles.primaryAction} to="/projects">
-              프로젝트 목록 보기
-            </Link>
-            <a
-              className={styles.secondaryAction}
-              href={publicProfile.links.github.href}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              GitHub
-            </a>
+        <p className={styles.overline}>Backend developer · Java &amp; Spring</p>
+        <h1 id="home-title">
+          <span>{publicProfile.headline}</span>
+        </h1>
+        <p className={styles.heroNote}>{publicProfile.focus}</p>
+        <div className={styles.inlineLinks} aria-label="주요 링크">
+          <Link to="/projects">Projects →</Link>
+          <a
+            href={publicProfile.links.github.href}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            GitHub ↗
+          </a>
+        </div>
+      </section>
+
+      <section className={styles.about} id="about" aria-labelledby="about-title">
+        <p className={styles.sectionNumber}>01</p>
+        <div className={styles.sectionBody}>
+          <h2 id="about-title">About</h2>
+          <p className={styles.aboutCopy}>{publicProfile.introduction}</p>
+        </div>
+      </section>
+
+      <section className={styles.featured} aria-labelledby="featured-title">
+        <p className={styles.sectionNumber}>02</p>
+        <div className={styles.sectionBody}>
+          <div className={styles.sectionHeading}>
+            <h2 id="featured-title">Selected project</h2>
+            <Link to="/projects">All projects →</Link>
           </div>
-        </div>
-      </section>
-
-      <section className={styles.contentSection} aria-labelledby="skills-title">
-        <div className={styles.sectionHeader}>
-          <p className={styles.kicker}>주요 기술</p>
-          <h2 id="skills-title">기술 스택</h2>
-        </div>
-        <div className={styles.skillGrid}>
-          {publicProfile.skills
-            .filter((category) => category.skills.length > 0)
-            .map((category) => (
-              <section
-                className={styles.skillGroup}
-                key={category.title}
-                aria-labelledby={`skill-${category.title}`}
-              >
-                <h3 id={`skill-${category.title}`}>{category.title}</h3>
-                <ul className={styles.tagList}>
-                  {category.skills.map((skill) => (
-                    <li key={skill}>{skill}</li>
-                  ))}
-                </ul>
-              </section>
-            ))}
-        </div>
-      </section>
-
-      <section className={styles.contentSection} aria-labelledby="featured-title">
-        <div className={styles.sectionHeader}>
-          <p className={styles.kicker}>대표 프로젝트</p>
-          <h2 id="featured-title">{publicProfile.featuredProject.name}</h2>
-        </div>
-        <div className={styles.projectSummary}>
-          {/*<p className={styles.description}>*/}
-          {/*  {publicProfile.featuredProject.description}*/}
-          {/*</p>*/}
-          <dl className={styles.metaList}>
+          <Link className={styles.projectRow} to="/projects/greengroove">
             <div>
-              <dt>현재 상태</dt>
-              <dd>{publicProfile.featuredProject.status}</dd>
+              <p className={styles.projectMeta}>개발 중 · 2026</p>
+              <h3>{featuredProject.name}</h3>
+              <p>{featuredProject.summary}</p>
             </div>
-            <div>
-              <dt>주요 기술</dt>
-              <dd>{publicProfile.featuredProject.technologies.join(', ')}</dd>
-            </div>
-          </dl>
-          <Link className={styles.textLink} to="/projects">
-            프로젝트 목록으로 이동
+            <span className={styles.projectArrow} aria-hidden="true">↗</span>
           </Link>
         </div>
       </section>
 
-      <section className={styles.contentSection} aria-labelledby="links-title">
-        <div className={styles.sectionHeader}>
-          <p className={styles.kicker}>외부 링크</p>
-          <h2 id="links-title">연결 가능한 채널</h2>
+      <section className={styles.toolkit} aria-labelledby="toolkit-title">
+        <p className={styles.sectionNumber}>03</p>
+        <div className={styles.sectionBody}>
+          <h2 id="toolkit-title">Toolkit</h2>
+          <dl className={styles.toolkitList}>
+            {publicProfile.skills.map((category) => (
+              <div key={category.title}>
+                <dt>{category.title}</dt>
+                <dd>{category.skills.join(' · ')}</dd>
+              </div>
+            ))}
+          </dl>
         </div>
-        <ul className={styles.linkList}>
-          {visibleExternalLinks.map((link) => (
-            <li key={link.label}>
-              <a href={link.href} target="_blank" rel="noopener noreferrer">
-                {link.label}
-              </a>
-            </li>
-          ))}
-        </ul>
       </section>
     </div>
   );
